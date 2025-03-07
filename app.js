@@ -1,11 +1,13 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+
 const parent = React.createElement(
   "div",
   { id: "parent" },
-  React.createElement(
-    "div",
-    { id: "child" },
-   [ React.createElement("h1", {} , 'iam a h1 tag from react') ,  React.createElement("h2", {} , 'iam a h2 tag from react')]
-  )
+  React.createElement("div", { id: "child" }, [
+    React.createElement("h1", {}, "iam sirajudheen kp from malappuram "),
+    React.createElement("h2", {}, "this is my react practice"),
+  ])
 );
 
 const heading = React.createElement(
