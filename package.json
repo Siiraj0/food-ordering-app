@@ -2,8 +2,9 @@
   "name": "practice",
   "version": "1.0.0",
   "description": "\"# react-practice\"",
-
   "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,5 +17,6 @@
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
-  }
+  },
+  "main": "app.js"
 }
