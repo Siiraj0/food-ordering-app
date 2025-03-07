@@ -40,6 +40,52 @@ const RestuarentCard = (props) => {
   );
 };
 
+
+const resObj = {
+  "id": "671928",
+  "name": "KFC",
+  "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2024/12/9/377e9327-3ca7-48ac-b36c-96f5bf6e186a_671928.JPG",
+  "locality": "7th Block",
+  "areaName": "Koramangla",
+  "costForTwo": "₹400 for two",
+  "cuisines": ["Burgers", "Fast Food", "Rolls & Wraps"],
+  "avgRating": 4.3,
+  "parentId": "547",
+  "avgRatingString": "4.3",
+  "totalRatingsString": "4.1K+",
+  "sla": {
+    "deliveryTime": 24,
+    "lastMileTravel": 1.2,
+    "serviceability": "SERVICEABLE",
+    "slaString": "20-25 mins",
+    "lastMileTravelString": "1.2 km",
+    "iconType": "ICON_TYPE_EMPTY"
+  },
+  "availability": {
+    "nextCloseTime": "2025-03-08 02:00:00",
+    "opened": true
+  },
+  "isOpen": true,
+  "type": "F",
+  "aggregatedDiscountInfoV3": {
+    "header": "ITEMS",
+    "subHeader": "AT ₹59"
+  },
+  "differentiatedUi": {
+    "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+    "differentiatedUiMediaDetails": {
+      "lottie": {},
+      "video": {}
+    }
+  },
+  "externalRatings": {
+    "aggregatedRating": {
+      "rating": "--"
+    }
+  },
+  "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+};
+
 const Body = () => {
   return (
     <div className="Body">
@@ -54,7 +100,7 @@ const Body = () => {
     </div>
   );
 };
-
+ 
 const AppLayout = () => {
   return (
     <div className="app">
