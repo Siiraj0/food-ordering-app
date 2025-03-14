@@ -6,8 +6,7 @@ import Shimmer from "./Shimmer";
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
 
-  console.log(listOfRestaurants,'listOfRestaurants');
-  
+  console.log(listOfRestaurants, "listOfRestaurants");
 
   const [filteredRestaurant, setFilteredRestaurants] = useState([]);
 
@@ -21,34 +20,37 @@ const Body = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=11.1556686&lng=75.891155&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
       );
-
+  
       const json = await response.json();
-
-      // Extract all restaurant data from API response
+      console.log("Full API Response:", json); // Debug API response
+  
       const restaurants = json?.data?.cards?.flatMap(
         (card) =>
           card?.card?.card?.gridElements?.infoWithStyle?.restaurants || []
       );
-
+  
       if (!restaurants || restaurants.length === 0) {
         console.warn("No restaurant data found.");
         setListOfRestaurants([]);
         return;
       }
-
-      // ✅ Remove duplicate restaurants based on ID
+  
+      // Remove duplicate restaurants based on ID
       const uniqueRestaurants = Array.from(
         new Map(restaurants.map((res) => [res.info.id, res])).values()
       );
-
+  
+      console.log("Extracted Restaurants:", uniqueRestaurants); // Debug restaurant data
+  
       setListOfRestaurants(uniqueRestaurants);
       setFilteredRestaurants(uniqueRestaurants);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+  
 
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
@@ -89,9 +91,14 @@ const Body = () => {
         </button>
       </div>
       <div className="res-container">
-        {filteredRestaurant.map((restaurant) => (
-          <RestuarentCard key={restaurant.info.id} resData={restaurant} />
-        ))}
+      {filteredRestaurant?.length > 0 ? (
+  filteredRestaurant.map((restaurant) => (
+    <RestuarentCard key={restaurant.info.id} resData={restaurant} />
+  ))
+) : (
+  <p>No restaurants available.</p>
+)}
+
       </div>
     </div>
   );
