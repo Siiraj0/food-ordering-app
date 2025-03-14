@@ -21,7 +21,7 @@ const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
-    errorElement: <Error />, // ✅ Error page for all children
+    errorElement: <Error />, //  Error page for all children
     children: [
       { path: "/", element: <Body /> }, // Fixed index route
       { path: "/about", element: <About /> }, // Fixed child paths
