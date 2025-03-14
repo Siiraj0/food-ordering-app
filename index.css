@@ -72,13 +72,11 @@
     }
 }
 
-/* Search Box */
-.Search {
-    padding: 10px;
-    font-size: 16px;
-    font-weight: bold;
-}
 
+
+.filter{
+    display: flex;
+}
 /* Restaurant Card Container */
 .res-container {
     display: flex;
