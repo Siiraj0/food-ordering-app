@@ -25,29 +25,33 @@ const RestaurantMenu = () => {
   const { name, cuisines, costForTwoMessage } = resInfo?.cards?.find(
     (card) => card?.card?.card?.info
   )?.card?.card?.info || { name: "No Name Found" };
-
-  const { itemCards } = resInfo?.cards
+  
+  // ✅ Get all itemCards from all sections
+  const itemCards = resInfo?.cards
     ?.find((card) => card?.groupedCard)
-    ?.groupedCard?.cardGroupMap?.REGULAR?.cards?.find(
-      (c) => c?.card?.card?.itemCards
-    )?.card?.card || { itemCards: [] };
-
-  console.log(itemCards);
-
+    ?.groupedCard?.cardGroupMap?.REGULAR?.cards
+    ?.flatMap((c) => c?.card?.card?.itemCards || []) || [];
+  
+  console.log(itemCards); // Check if you're getting all items
+  
   return (
     <div className="menu">
       <h1>{name}</h1>
       <p>
-        {cuisines.join(",")} - {costForTwoMessage}
+        {cuisines.join(", ")} - {costForTwoMessage}
       </p>
-
+  
       <ul>
         {itemCards.map((item) => (
-          <li> {item.card.info.name}</li>
+          <li key={item.card.info.id}>
+            {item.card.info.name} - ₹
+            {(item.card.info.defaultPrice || item.card.info.price) / 100}
+          </li>
         ))}
       </ul>
     </div>
   );
+  
 };
 
 export default RestaurantMenu;
