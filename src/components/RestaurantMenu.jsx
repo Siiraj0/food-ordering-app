@@ -22,29 +22,30 @@ const RestaurantMenu = () => {
     return <Shimmer />;
   }
 
-  const { name , cuisines , costForTwoMessage} = resInfo?.cards?.find(
+  const { name, cuisines, costForTwoMessage } = resInfo?.cards?.find(
     (card) => card?.card?.card?.info
   )?.card?.card?.info || { name: "No Name Found" };
 
-  const { itemCards } =
-  resInfo?.cards
+  const { itemCards } = resInfo?.cards
     ?.find((card) => card?.groupedCard)
     ?.groupedCard?.cardGroupMap?.REGULAR?.cards?.find(
       (c) => c?.card?.card?.itemCards
     )?.card?.card || { itemCards: [] };
 
-    console.log(itemCards);
-    
+  console.log(itemCards);
 
-
-  return  (
+  return (
     <div className="menu">
       <h1>{name}</h1>
-      <p>{cuisines.join(",")} - {costForTwoMessage}</p>
-      <ul>birinayi</ul>
-      <ul>burger</ul>
-      <ul>momos</ul>
-      <ul>fried </ul>
+      <p>
+        {cuisines.join(",")} - {costForTwoMessage}
+      </p>
+
+      <ul>
+        {itemCards.map((item) => (
+          <li> {item.card.info.name}</li>
+        ))}
+      </ul>
     </div>
   );
 };
