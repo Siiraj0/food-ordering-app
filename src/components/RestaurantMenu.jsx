@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
+import { useParams } from "react-router-dom";
+import { MENU_API } from "../utils/contants";
 
 const RestaurantMenu = () => {
   const [resInfo, setResInfo] = useState(null);
+
+  const { resId } = useParams();
 
   useEffect(() => {
     fetchMenu();
   }, []);
 
   const fetchMenu = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=11.1556686&lng=75.891155&restaurantId=595208&catalog_qa=undefined&submitAction=ENTER"
-    );
+    const data = await fetch(MENU_API + resId);
     const json = await data.json();
     console.log(json);
 
@@ -25,22 +27,24 @@ const RestaurantMenu = () => {
   const { name, cuisines, costForTwoMessage } = resInfo?.cards?.find(
     (card) => card?.card?.card?.info
   )?.card?.card?.info || { name: "No Name Found" };
-  
+
   // ✅ Get all itemCards from all sections
-  const itemCards = resInfo?.cards
-    ?.find((card) => card?.groupedCard)
-    ?.groupedCard?.cardGroupMap?.REGULAR?.cards
-    ?.flatMap((c) => c?.card?.card?.itemCards || []) || [];
-  
+  const itemCards =
+    resInfo?.cards
+      ?.find((card) => card?.groupedCard)
+      ?.groupedCard?.cardGroupMap?.REGULAR?.cards?.flatMap(
+        (c) => c?.card?.card?.itemCards || []
+      ) || [];
+
   console.log(itemCards); // Check if you're getting all items
-  
+
   return (
     <div className="menu">
       <h1>{name}</h1>
       <p>
         {cuisines.join(", ")} - {costForTwoMessage}
       </p>
-  
+
       <ul>
         {itemCards.map((item) => (
           <li key={item.card.info.id}>
@@ -51,7 +55,6 @@ const RestaurantMenu = () => {
       </ul>
     </div>
   );
-  
 };
 
 export default RestaurantMenu;
