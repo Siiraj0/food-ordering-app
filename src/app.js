@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider , Outlet} from "react-router-dom";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
+import RestaurantMenu from "./components/RestaurantMenu";
 
 // Main App Layout
 const AppLayout = () => {
@@ -26,6 +27,7 @@ const appRouter = createBrowserRouter([
       { path: "/", element: <Body /> }, // Fixed index route
       { path: "/about", element: <About /> }, // Fixed child paths
       { path: "/contact", element: <Contact /> },
+      { path: "/restaurant/:resId", element: <RestaurantMenu /> },
     ],
   },
 ]);
