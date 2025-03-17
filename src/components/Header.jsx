@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
 
-  return (
+  return ( 
     <div className="header">
       <div id="logo-container">
         <img className="logo" src={LOGO_URL} alt="App Logo" />
