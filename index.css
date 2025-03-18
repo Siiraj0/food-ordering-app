@@ -226,3 +226,9 @@
         background-position: 200% 0;
     }
 }
+
+
+.user-card {
+    padding: 10px;
+    border: 1px solid black;
+}
