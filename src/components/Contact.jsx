@@ -5,7 +5,7 @@ const Contact = () => {
       <h1>ph:9738473749</h1>
       <h1>foofie@gmail.com</h1>
       <h1>malappuram </h1>
-    </div>   
+    </div>
   );
 };
 
