@@ -20,11 +20,11 @@ class UserClass extends React.Component {
       <div className="user-card">
         <h1>Count : {count}</h1>
         <button
-          onClick={() => {
+          onClick={() => { 
             this.setState({ count: this.state.count + 1 });
             this.setState({ price: this.state.price + 500
             });
-
+ 
           }}
         > 
           count increase
