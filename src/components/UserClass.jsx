@@ -26,7 +26,7 @@ class UserClass extends React.Component {
             });
  
           }}
-        > 
+        >    
           count increase
         </button>
         <h1>total price : {price}</h1>
