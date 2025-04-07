@@ -1,22 +1,32 @@
 import { LOGO_URL } from "../utils/contants";
-import {  useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 // Header Component
 const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
+  const onlineStatus = useOnlineStatus();
 
-  return ( 
+  return (
     <div className="header">
       <div id="logo-container">
         <img className="logo" src={LOGO_URL} alt="App Logo" />
       </div>
       <div className="nav-items">
         <ul>
-          <li><Link to={"/"}>Home</Link></li>
-          <li><Link to={"/about"}>About Us</Link></li>
-          <li><Link to={"/contact"}>Contact Us</Link></li>
-          <li>Cart</li>  
+          <li>Online Status: {onlineStatus ? "🟢" : "🔴"}</li>
+
+          <li>
+            <Link to={"/"}>Home</Link>
+          </li>
+          <li>
+            <Link to={"/about"}>About Us</Link>
+          </li>
+          <li>
+            <Link to={"/contact"}>Contact Us</Link>
+          </li>
+          <li>Cart</li>
           <button
             className="Login"
             onClick={() => {
@@ -32,5 +42,7 @@ const Header = () => {
     </div>
   );
 };
+
+
 
 export default Header;

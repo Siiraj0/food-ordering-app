@@ -1,58 +1,56 @@
-import { useState, useEffect } from "react";
-import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
-import { MENU_API } from "../utils/contants";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
+import Shimmer from "./Shimmer";
 
 const RestaurantMenu = () => {
-  const [resInfo, setResInfo] = useState(null);
-
   const { resId } = useParams();
+  const resInfo = useRestaurantMenu(resId);
 
-  useEffect(() => {
-    fetchMenu();
-  }, []);
+  if (!resInfo) return <Shimmer />;
 
-  const fetchMenu = async () => {
-    const data = await fetch(MENU_API + resId);
-    const json = await data.json();
-    console.log(json);
+  console.log("🐞 Full API Response:", resInfo); // <== Debug here
 
-    setResInfo(json.data);
-  };
-
-  if (resInfo === null) {
-    return <Shimmer />;
-  }
-
-  const { name, cuisines, costForTwoMessage } = resInfo?.cards?.find(
+  // Safely find restaurant info
+  const cardWithInfo = resInfo?.cards?.find(
     (card) => card?.card?.card?.info
-  )?.card?.card?.info || { name: "No Name Found" };
+  );
 
-  // ✅ Get all itemCards from all sections
+  const info = cardWithInfo?.card?.card?.info || {};
+  const name = info.name || "Restaurant Name";
+  const cuisines = Array.isArray(info.cuisines) ? info.cuisines : [];
+  const costForTwoMessage = info.costForTwoMessage || "N/A";
+
+  // Extract menu items
+  const menuSection = resInfo?.cards?.find((card) => card?.groupedCard);
   const itemCards =
-    resInfo?.cards
-      ?.find((card) => card?.groupedCard)
-      ?.groupedCard?.cardGroupMap?.REGULAR?.cards?.flatMap(
-        (c) => c?.card?.card?.itemCards || []
-      ) || [];
-
-  console.log(itemCards); // Check if you're getting all items
+    menuSection?.groupedCard?.cardGroupMap?.REGULAR?.cards?.flatMap(
+      (section) => section?.card?.card?.itemCards || []
+    ) || [];
 
   return (
     <div className="menu">
       <h1>{name}</h1>
-      <p>
-        {cuisines.join(", ")} - {costForTwoMessage}
-      </p>
+      <p>{cuisines.join(", ")} - {costForTwoMessage}</p>
 
-      <ul>
-        {itemCards.map((item) => (
-          <li key={item.card.info.id}>
-            {item.card.info.name} - ₹
-            {(item.card.info.defaultPrice || item.card.info.price) / 100}
-          </li>
-        ))}
-      </ul>
+      <h2>Menu Items</h2>
+      {itemCards.length === 0 ? (
+        <p>No items available</p>
+      ) : (
+        <ul>
+          {itemCards.map((item) => (
+            <li key={item.card.info.id}>
+              {item.card.info.name} - ₹
+              {(item.card.info.defaultPrice || item.card.info.price) / 100}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {/* 🔍 Debug Output at the bottom
+      <div style={{ marginTop: "2rem", background: "#eee", padding: "1rem" }}>
+        <h3>🔍 Debug Output</h3>
+        <pre>{JSON.stringify(resInfo, null, 2)}</pre>
+      </div> */}
     </div>
   );
 };
