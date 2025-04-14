@@ -7,6 +7,7 @@ const RestaurantMenu = () => {
   const resInfo = useRestaurantMenu(resId);
 
   if (!resInfo) return <Shimmer />;
+console.log("suiiii");
 
   console.log("🐞 Full API Response:", resInfo); // <== Debug here
 
